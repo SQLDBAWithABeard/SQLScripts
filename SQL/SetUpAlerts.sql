@@ -27,7 +27,7 @@ EXEC msdb.dbo.sysmail_add_account_sp @account_name=N'##accountname##',
 		@description=N'Mail account for Database Mail',
 		@mailserver_name = '##mailserver##' 
 EXEC msdb.dbo.sysmail_add_profile_sp @profile_name=N'##profilename##', 
-		@description=N'Profile used for database mail for SQL DBA Alerts'
+		@description=N'Profile used for database mail for SQL DBA Alerts - automated - Thanks Rob Sewell @SQLDBAWithABeard - https://sqldbawithabeard.com'
 EXEC msdb.dbo.sysmail_add_profileaccount_sp @profile_name=N'##profilename##', @account_name=N'##accountname##', @sequence_number=1
 EXEC msdb.dbo.sysmail_add_principalprofile_sp @principal_name=N'guest', @profile_name=N'##profilename##', @is_default=1
 
