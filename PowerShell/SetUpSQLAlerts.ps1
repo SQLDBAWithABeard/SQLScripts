@@ -32,6 +32,9 @@
 #.PARAMETER OperatorEmail
 # the operator email address for receiving the alerts
 #
+#.PARAMETER ScriptOnly
+# Just return the SQL Scripts (for off-line installs)
+#
 #.EXAMPLE
 # SetUpSQLAlerts.ps1 -Instance Instance -accountname DBATeam -EmailAddress DBAAlerts@thebeard.local -displayname DBATeam -replytoaddress TheDBATeam@TheBeard.Local -mailserver mail.TheBeard.Local -profilename DBATeam -Operatorname 'The DBA Team' -OperatorEmail TheDBATeam@TheBeard.Local 
 #
@@ -49,7 +52,8 @@ param(
     [string]$mailserver,
     [string]$profilename,
     [string]$Operatorname,
-    [string]$OperatorEmail
+    [string]$OperatorEmail,
+    [switch]$ScriptOnly
 
 )
 
@@ -57,6 +61,11 @@ $SQLALertsscript = 'https://raw.githubusercontent.com/SQLDBAWithABeard/SQLScript
 
 $SQL = (Invoke-WebRequest -UseBasicParsing -Uri $SQLALertsscript).Content
 
-$SQL = $SQL.Replace('##accountname##', $accountname).Replace('##EmailAddress##', $EmailAddress).Replace('##displayname##', $displayname).Replace('##replytoaddress##', $replytoaddress).Replace('##mailserver##', $mailserver).Replace('##profilename##', $profilename).Replace('##Operator##',$Operatorname).Replace('##OperatorEmail##',$OperatorEmail)
+$SQL = $SQL.Replace('##accountname##', $accountname).Replace('##EmailAddress##', $EmailAddress).Replace('##displayname##', $displayname).Replace('##replytoaddress##', $replytoaddress).Replace('##mailserver##', $mailserver).Replace('##profilename##', $profilename).Replace('##Operator##', $Operatorname).Replace('##OperatorEmail##', $OperatorEmail)
 
-Invoke-DbaSqlQuery -SqlInstance $Instance -Database msdb -Query $SQL
+if ($ScriptOnly) {
+    Return $SQL
+}
+else {
+    Invoke-DbaSqlQuery -SqlInstance $Instance -Database msdb -Query $SQL
+}
