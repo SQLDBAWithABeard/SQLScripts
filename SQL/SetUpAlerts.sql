@@ -165,7 +165,7 @@ END
 IF NOT EXISTS (
 	SELECT 1
 	FROM msdb.dbo.sysalerts
- WHERE name = N'Severity 823'
+ WHERE name = N'Error Number 823'
 )
 BEGIN
 EXEC msdb.dbo.sp_add_alert @name=N'Error Number 823', @message_id=823, @severity=0, @enabled=1, @delay_between_responses=60, @include_event_description_in=1, @job_id=N'00000000-0000-0000-0000-000000000000'
@@ -175,7 +175,7 @@ END
 IF NOT EXISTS (
 	SELECT 1
 	FROM msdb.dbo.sysalerts
- WHERE name = N'Severity 824'
+ WHERE name = N'Error Number 824'
 )
 BEGIN
 EXEC msdb.dbo.sp_add_alert @name=N'Error Number 824', @message_id=824,@severity=0,@enabled=1,@delay_between_responses=60, @include_event_description_in=1, @job_id=N'00000000-0000-0000-0000-000000000000'
@@ -185,7 +185,7 @@ END
 IF NOT EXISTS (
 	SELECT 1
 	FROM msdb.dbo.sysalerts
- WHERE name = N'Severity 825'
+ WHERE name = N'Error Number 825'
 )
 BEGIN
 EXEC msdb.dbo.sp_add_alert @name=N'Error Number 825', @message_id=825, @severity=0, @enabled=1, @delay_between_responses=60, @include_event_description_in=1, @job_id=N'00000000-0000-0000-0000-000000000000'
