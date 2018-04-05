@@ -7,7 +7,7 @@ CTRL + H and replace
 ##replytoaddress## - with reply to address
 ##mailserver## - with mail server
 ##profilename## - with profile name
-##Operator## - Operator Name
+##Operator## - Operator Name - also sets as teh default operator
 ##OperatorEmail## - Operator Email
 */
 
@@ -51,6 +51,10 @@ EXEC msdb.dbo.sp_add_operator @name=N'##Operator##',
 		@pager_days=0, 
 		@email_address=N'##OperatorEmail##'
 END
+
+EXEC master.dbo.sp_MSsetalertinfo @failsafeoperator=N'##Operator##', @notificationmethod=1;
+
+EXEC msdb.dbo.sp_set_sqlagent_properties @email_save_in_sent_folder=1, @databasemail_profile=N'##profilename##', @use_databasemail=1;
 
 IF NOT EXISTS (
 	SELECT 1
